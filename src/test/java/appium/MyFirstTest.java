@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,8 +31,8 @@ public class MyFirstTest {
         capabilities.setCapability(MobileCapabilityType.UDID, "DA377806-5192-44F1-8B51-7A59EA5DDEFF");
         capabilities.setCapability(MobileCapabilityType.APPLICATION_NAME, "com.dephotos.Depositphotos");
         capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-        capabilities.setCapability(MobileCapabilityType.FULL_RESET, "True");
-        capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "600");
+        capabilities.setCapability(MobileCapabilityType.FULL_RESET, "False");
+        capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "200");
 
         URL remoteUrl = new URL("http://127.0.0.01:4723/wd/hub");
         driver = new IOSDriver(remoteUrl,capabilities);
@@ -51,7 +53,7 @@ public class MyFirstTest {
         int xPoint = 30;
         int yPoint = 60;
 
-        TouchAction openMenu = new TouchAction(driver).tap(PointOption.point(xPoint,yPoint)).perform();
+        TouchAction openMenu = new TouchAction(driver).tap(PointOption.point(xPoint, yPoint)).perform();
 
         MobileElement loginPanel = (MobileElement) driver.findElement(By.xpath("//XCUIElementTypeButton[@name=\"Log In\"]")); //*[@id="selectedElementContainer"]/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr[2]/td[2]/text()
         loginPanel.click();
@@ -69,6 +71,14 @@ public class MyFirstTest {
 
         MobileElement loginButton = (MobileElement) driver.findElement(By.xpath("//XCUIElementTypeButton[@name=\"Log In\"]"));
         loginButton.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/XCUIElementTypeApplication[@name=\"Depositphotos\"]")));
+
+        //User open Profile
+        WebDriverWait forOpenMenu = new WebDriverWait(driver, 10);
+        forOpenMenu.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeApplication[@name=\"Depositphotos\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView")));
+//        TouchAction openMenuAgain = new TouchAction(driver).tap(PointOption.point(xPoint, yPoint));
 
 
     }
