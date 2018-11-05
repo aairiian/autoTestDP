@@ -4,6 +4,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 public class MyFirstTest {
 
@@ -48,9 +48,10 @@ public class MyFirstTest {
     @Test
     public void loginWithValidCredentials () throws InterruptedException {
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        int xPoint = 30;
+        int yPoint = 60;
 
-        new TouchAction(driver).tap(30,60).waitAction(2500).perform();
+        TouchAction openMenu = new TouchAction(driver).tap(PointOption.point(xPoint,yPoint)).perform();
 
         MobileElement loginPanel = (MobileElement) driver.findElement(By.xpath("//XCUIElementTypeButton[@name=\"Log In\"]")); //*[@id="selectedElementContainer"]/div/div[2]/div/div[3]/div/div/div/div/div/div/table/tbody/tr[2]/td[2]/text()
         loginPanel.click();
@@ -72,10 +73,6 @@ public class MyFirstTest {
 
     }
 
-    @Test
-
-    public void searchElements (){
-    }
 
 }
 
