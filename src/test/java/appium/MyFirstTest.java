@@ -86,11 +86,31 @@ public class MyFirstTest {
         WebDriverWait forPanel = new WebDriverWait(driver,10);
         forPanel.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//XCUIElementTypeApplication[@name=\"Depositphotos\"]")));
 
-                MobileElement userNameString = (MobileElement) driver.findElement(By.xpath("//XCUIElementTypeButton[@name=\"qa.mob.com\"]"));
-                userNameString.click();
+        MobileElement userNameString = (MobileElement) driver.findElement(By.xpath("//XCUIElementTypeButton[@name=\"qa.mob.com\"]"));
+        userNameString.click();
 
-                WebDriverWait forViewProfile = new WebDriverWait(driver,10);
-                forViewProfile.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeButton[@name=\"qa.mob.com\"]")));
+        WebDriverWait forViewProfile = new WebDriverWait(driver,10);
+        forViewProfile.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeOther[@name=\"Profile\"]")));
+
+        TouchAction backToPanel = new TouchAction(driver);
+        backToPanel.tap(PointOption.point(xPoint,yPoint));
+        backToPanel.waitAction();
+        backToPanel.release();
+        backToPanel.perform();
+
+        WebDriverWait forHome = new WebDriverWait(driver,10);
+        forHome.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeButton[@name=\"Home\"]")));
+
+        MobileElement pressHome = (MobileElement) driver.findElement(By.xpath("//XCUIElementTypeButton[@name=\"Home\"]"));
+        pressHome.click();
+
+        WebDriverWait forViewHome = new WebDriverWait(driver,10);
+        forViewHome.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeApplication[@name=\"Depositphotos\"]")));
+
+
+
+
+
 
 
 
