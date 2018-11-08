@@ -4,6 +4,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Before;
@@ -15,10 +16,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 
 public class MyFirstTest {
 
     IOSDriver driver;
+
 
     @Before
     public void setUp() throws MalformedURLException {
@@ -52,6 +55,9 @@ public class MyFirstTest {
 
         int xPoint = 30;
         int yPoint = 60;
+        int x = 205, x1 = 194;
+        int y = 635, y1 = 250;
+
 
         TouchAction openMenu = new TouchAction(driver);
         openMenu.tap(PointOption.point(xPoint, yPoint));
@@ -108,14 +114,15 @@ public class MyFirstTest {
         forViewHome.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeApplication[@name=\"Depositphotos\"]")));
 
 
+        TouchAction swipeUp = new TouchAction(driver);
+        swipeUp.press(PointOption.point(x, y));
+        swipeUp.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)));
+        swipeUp.moveTo(PointOption.point(x1,y1));
+        swipeUp.release();
+        swipeUp.perform();
 
-
-
-
-
-
-
-
+        WebDriverWait forFreeFiles = new WebDriverWait(driver,10);
+        forFreeFiles.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//XCUIElementTypeStaticText[@name=\"Free Files\"]")));
 
 
 
